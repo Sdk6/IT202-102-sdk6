@@ -7,7 +7,7 @@ $dev= True;
 
 
 </style>
-<form onsubmit="return validate(this)" method="POST">
+<form id ="frm1" onsubmit="return validate(this)" method="POST">
     <div>
         <label for="email">Email</label>
         <input type="email" name="email" required />
@@ -30,7 +30,22 @@ $dev= True;
     function validate(form) {
         //TODO 1: implement JavaScript validation
         //ensure it returns false for an error and true for success
-
+        var x = document.getElementById("frm1");
+        var text = "";
+        var email = x.elements[0].value
+        var username = x.elements[1].value
+        var pass = x.elements[2].value
+        var confirm = x.elements[3].value
+        text = `email: ${email}\nuser: ${username}\npass: ${pass}\npass confirm: ${confirm}`
+        //console.log(text);
+        if (pass === confirm){
+        }
+        else{
+            document.getElementById("msg").innerText="Passwords do not match, please try again.";
+            console.log(`pass: ${pass}\nconfirm: ${confirm}`);
+            return false;
+        }
+        
         return true;
     }
 </script>
@@ -66,3 +81,4 @@ $hasError=true;
  $_SESSION["favcolor"] = "green";
  echo session_id();
 ?>
+<p id="msg"></p>

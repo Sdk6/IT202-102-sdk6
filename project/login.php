@@ -1,6 +1,9 @@
 <?php
 require(__DIR__ . "/nav.php");
 ?>
+<script>
+    console.log("test")
+</script>
 <form onsubmit="return validate(this)" method="POST">
     <div>
         <label for="email">Email</label>
