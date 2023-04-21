@@ -59,24 +59,39 @@ $hasError=true;
     $password= $_POST['password'];
     $confirm= $_POST['confirm'];
     $username= $_POST['username'];
-    echo $email . ' ' . $password;
+    echo 'email: ' . $email . "<br>password: " . $password . "<br>username: " . $username . "<br>";
     $hasError=false;
  }
 
  if(!$hasError){
+    $cont=true;
     $hash=password_hash($password, PASSWORD_BCRYPT);
     $db= getDB();
-    //test before going further
-    $stmt = $db->prepare("INSERT INTO Users(email, password, username) VALUES(:email, :password, :username)");
-    try{
-        $r= $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username]);
-        echo "Successfully register!";
-    }catch(Exception $e){
-        echo "There was an error registering<br>";
-        echo "<pre>" . var_export($e, true) . "</pre>";
+    $sql = $db->query("SELECT * FROM Users WHERE username='$username'");
+    $result = $sql->fetch(PDO::FETCH_ASSOC);
+    if($result){
+        echo "username taken please try again<br>";
+        $cont=false;
+    }
+
+    $sql = $db->query("SELECT * FROM Users WHERE email='$email'");
+    $result = $sql->fetch(PDO::FETCH_ASSOC);
+    if($result){
+        echo "email in use please try again<br>";
+        $cont = false;
+    }
+    if($cont){
+        //test before going further
+        $stmt = $db->prepare("INSERT INTO Users(email, password, username) VALUES(:email, :password, :username)");
+        try{
+            $r= $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username]);
+            echo "Successfully register!";
+        }catch(Exception $e){
+            echo "There was an error registering<br>";
+            //echo "<pre>" . var_export($e, true) . "</pre>";
+        }
     }
  }
-
  session_start();
  $_SESSION["favcolor"] = "green";
  echo session_id();
