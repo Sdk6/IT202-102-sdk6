@@ -4,7 +4,7 @@ require(__DIR__ . "/nav.php");
 <script>
     console.log("test")
 </script>
-<form onsubmit="return validate(this)" method="POST">
+<form id="frm1" onsubmit="return validate(this)" method="POST">
     <div>
         <label for="email">Email</label>
         <input type="email" name="email" required />
@@ -19,11 +19,14 @@ require(__DIR__ . "/nav.php");
     function validate(form) {
         //TODO 1: implement JavaScript validation
         //ensure it returns false for an error and true for success
-
+        var x = document.getElementById("frm1");
+        var email = x.elements[0].value;
+        var password = x.elements[1].value;
         return true;
     }
 </script>
 <?php
+session_start();
 //TODO 2: add PHP Code
 if (isset($_POST["email"]) && isset($_POST["password"])) {
     $email = se($_POST, "email", "", false);
@@ -76,5 +79,6 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
             echo "<pre>" . var_export($e, true) . "</pre>";
         }
     }
+    echo "<br>" . $email . "<br>" . $password;
 }
 ?>
