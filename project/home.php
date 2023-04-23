@@ -10,7 +10,13 @@
 
 <?php
 // Echo session variables that were set on previous page
-echo 'Welcome '.implode(" ", $_SESSION['user']);
+if(isset($_SESSION["user"])){
+    echo 'Welcome '.implode(" ", $_SESSION['user']);
+}
+else{
+    echo "You do not have permission to access this page";
+};
+
 ?>
 
 </body>
