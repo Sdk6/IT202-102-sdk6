@@ -1,28 +1,32 @@
 <?php
+session_start();
 require(__DIR__ . "/nav.php");
 $dev= True;
 
 ?>
 <style>
-
+    div {
+        margin: 5px;
+    }
 
 </style>
+
 <form id ="frm1" onsubmit="return validate(this)" method="POST">
     <div>
-        <label for="email">Email</label>
+        <label for="email">Email</label><br>
         <input type="email" name="email" required />
     </div>
     <div>
-        <label for="username">username</label>
-        <input name="username" required />
+        <label for="username">Username</label><br>
+        <input name="username"  required />
     </div>
     <div>
-        <label for="pw">Password</label>
+        <label for="pw">Password</label><br>
         <input type="password" id="pw" name="password" required minlength="8" />
     </div>
     <div>
-        <label for="confirm">Confirm</label>
-        <input type="password" name="confirm" required minlength="8" />
+        <label for="confirm">Confirm Password</label><br>
+        <input type="password" name="confirm" required minlength="8"  />
     </div>
     <input type="submit" value="Register" />
 </form>
@@ -92,8 +96,6 @@ $hasError=true;
         }
     }
  }
- session_start();
- $_SESSION["favcolor"] = "green";
- echo session_id();
+ 
 ?>
 <p id="msg"></p>
